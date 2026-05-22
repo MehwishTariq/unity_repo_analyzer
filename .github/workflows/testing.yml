@@ -11,17 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Upgraded from @v4 to @v5 (or @v6 depending on your project settings) 
+    # to support the modern Node 24 runner environment cleanly
     - name: Checkout Codebase
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
+    # Step 2: Upgraded from @v5 to @v8.1.0 to meet Node 24 specifications
+    # This version drops mutable tags (like @v8) to eliminate supply chain vulnerabilities
     - name: Set up uv Engine
-      uses: astral-sh/setup-uv@v5
-      
-    # This guarantees the cloud VM installs the EXACT same versions running on your laptop.
-    - name: Install Locked Application Dependencies
-      run: uv sync --system
+      uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      with:
+        enable-cache: true
 
-    # Step 5: Execute your automated pytest suite
+    # Step 3: Synced via your lockfile layout
+    - name: Install Locked Application Dependencies
+      run: uv sync
+
+    # Step 4: Execute tests inside your project workspace
     - name: Execute Automated Pytest Suite
-      run: |
-        pytest -v
+      run: uv run pytest -v
