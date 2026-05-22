@@ -1,5 +1,5 @@
 # =====================================================================
-# 🛠️ EMERGENCY MONKEY-PATCH: Fixes CrewAI Bug injecting 'cache_breakpoint' into Groq
+# EMERGENCY MONKEY-PATCH: Fixes CrewAI Bug injecting 'cache_breakpoint' into Groq
 # =====================================================================
 try:
     import crewai.llms.cache as _crewai_cache
@@ -9,7 +9,9 @@ try:
 except Exception as patch_error:
     print(f"[PATCH WARNING] Failed to apply Groq compatibility patch: {patch_error}")
 # =====================================================================
-
+  
+import os
+import uvicorn
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, HttpUrl
 from typing import Optional
@@ -68,3 +70,9 @@ def trigger_repository_audit(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal engine execution crash: {str(e)}")
+  
+
+if __name__ == "__main__":
+    # Fallback to 7860 if the PORT environment variable isn't specified
+    port = int(os.environ.get("PORT", 7860))
+    uvicorn.run("server:app", host="0.0.0.0", port=port)
