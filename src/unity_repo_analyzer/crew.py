@@ -3,8 +3,8 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai_tools import FileReadTool
 
-from unity_repo_reader.helper.report_path_resolver import SmartReportPathResolver
-from unity_repo_reader.tools.custom_unity_tool import UnityCSharpMapperTool
+from unity_repo_analyzer.helper.report_path_resolver import SmartReportPathResolver
+from unity_repo_analyzer.tools.custom_unity_tool import UnityCSharpMapperTool
 
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -17,7 +17,7 @@ class UnityRepoReader():
     agents: list[BaseAgent]
     tasks: list[Task]
 
-    # YAML config locations (must match files under src/unity_repo_reader/config)
+    # YAML config locations (must match files under src/unity_repo_analyzer/config)
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
     

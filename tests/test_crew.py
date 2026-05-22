@@ -2,7 +2,7 @@
 import pytest
 from unittest.mock import MagicMock
 from crewai import Task
-from src.unity_repo_reader.crew import UnityRepoReader
+from src.unity_repo_analyzer.crew import UnityRepoReader
 
 @pytest.fixture
 def dummy_crew():

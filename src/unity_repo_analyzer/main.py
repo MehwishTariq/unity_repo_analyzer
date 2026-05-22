@@ -4,7 +4,7 @@ import warnings
 
 from datetime import datetime
 
-from unity_repo_reader.crew import UnityRepoReader
+from unity_repo_analyzer.crew import UnityRepoReader
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 

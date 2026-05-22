@@ -1,7 +1,7 @@
 # tests/test_resolver.py
 import os
 import pytest
-from unity_repo_reader.helper.report_path_resolver import SmartReportPathResolver
+from unity_repo_analyzer.helper.report_path_resolver import SmartReportPathResolver
 
 @pytest.fixture
 def temp_workspace(tmp_path):

@@ -3396,7 +3396,7 @@ wheels = [
 ]
 
 [[package]]
-name = "unity-repo-reader"
+name = "unity-repo-analyzer"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
