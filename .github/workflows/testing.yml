@@ -1,0 +1,31 @@
+name: Continuous Integration Test Suite
+
+on:
+  push:
+    branches: [ main, master, development ]
+  pull_request:
+    branches: [ main, master, development ]
+
+jobs:
+  run-validation-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Codebase
+      uses: actions/checkout@v4
+
+    - name: Set up uv Engine
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+        version: "latest"
+        python-version-file: ".python-version"
+
+    # This guarantees the cloud VM installs the EXACT same versions running on your laptop.
+    - name: Install Locked Application Dependencies
+      run: uv pip sync uv.lock --system
+
+    # Step 5: Execute your automated pytest suite
+    - name: Execute Automated Pytest Suite
+      run: |
+        pytest -v
