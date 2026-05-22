@@ -14,9 +14,6 @@ from unity_repo_reader.tools.custom_unity_tool import UnityCSharpMapperTool
 class UnityRepoReader():
     """UnityRepoReader crew"""
 
-    def __init__(self, project_name: str = "default_project"):
-        self.project_name = project_name
-
     agents: list[BaseAgent]
     tasks: list[Task]
 
@@ -27,6 +24,9 @@ class UnityRepoReader():
     # Initialize your pure Python helper
     path_resolver = SmartReportPathResolver()
     
+    def __init__(self, project_name: str = "default_project"):
+        self.project_name = project_name
+
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
     # Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
