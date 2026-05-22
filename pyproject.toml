@@ -1,7 +1,7 @@
 [project]
-name = "unity_repo_reader"
+name = "unity_repo_analyzer"
 version = "0.1.0"
-description = "unity_repo_reader using crewAI"
+description = "unity_repo_analyzer using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
@@ -10,12 +10,12 @@ dependencies = [
 ]
 
 [project.scripts]
-unity_repo_reader = "unity_repo_reader.main:run"
-run_crew = "unity_repo_reader.main:run"
-train = "unity_repo_reader.main:train"
-replay = "unity_repo_reader.main:replay"
-test = "unity_repo_reader.main:test"
-run_with_trigger = "unity_repo_reader.main:run_with_trigger"
+unity_repo_analyzer = "unity_repo_analyzer.main:run"
+run_crew = "unity_repo_analyzer.main:run"
+train = "unity_repo_analyzer.main:train"
+replay = "unity_repo_analyzer.main:replay"
+test = "unity_repo_analyzer.main:test"
+run_with_trigger = "unity_repo_analyzer.main:run_with_trigger"
 
 [build-system]
 requires = ["hatchling"]
