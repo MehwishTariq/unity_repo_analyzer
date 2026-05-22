@@ -16,11 +16,7 @@ jobs:
 
     - name: Set up uv Engine
       uses: astral-sh/setup-uv@v5
-      with:
-        enable-cache: true
-        version: "latest"
-        python-version-file: ".python-version"
-
+      
     # This guarantees the cloud VM installs the EXACT same versions running on your laptop.
     - name: Install Locked Application Dependencies
       run: uv sync --system
