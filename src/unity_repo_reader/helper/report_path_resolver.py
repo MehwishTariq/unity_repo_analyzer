@@ -20,7 +20,7 @@ class SmartReportPathResolver:
             os.makedirs(target_dir)
 
         # 4. Scan folder to find the highest version number
-        pattern = re.compile(rf"{re.escape(clean_project)}_architecture_report_v(\d+)\.md")
+        pattern = re.compile(rf"architecture_report_v(\d+)\.md")
         highest_version = 0
 
         try:
