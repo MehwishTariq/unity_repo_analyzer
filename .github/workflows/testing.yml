@@ -23,7 +23,7 @@ jobs:
 
     # This guarantees the cloud VM installs the EXACT same versions running on your laptop.
     - name: Install Locked Application Dependencies
-      run: uv pip sync uv.lock --system
+      run: uv sync --system
 
     # Step 5: Execute your automated pytest suite
     - name: Execute Automated Pytest Suite
