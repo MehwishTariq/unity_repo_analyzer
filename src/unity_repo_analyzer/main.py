@@ -1,8 +1,5 @@
-#!/usr/bin/env python
 import sys
 import warnings
-
-from datetime import datetime
 
 from unity_repo_analyzer.crew import UnityRepoReader
 
@@ -37,7 +34,8 @@ def run():
 
     try:
         print(f"Starting analysis on: {repo_path}\n")
-        UnityRepoReader(project_name=project_name).crew().kickoff(inputs=inputs) #type: ignore
+        crew_instance = UnityRepoReader(project_name=project_name, api_key="", provider="")#type: ignore
+        crew_instance.crew().kickoff(inputs=inputs) 
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 

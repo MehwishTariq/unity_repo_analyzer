@@ -1,9 +1,10 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai_tools import FileReadTool
 
 from unity_repo_analyzer.helper.report_path_resolver import SmartReportPathResolver
+from unity_repo_analyzer.helper.llm_initializer import get_llm
+from unity_repo_analyzer.tools.custom_file_read_tool import SafeFileReadTool
 from unity_repo_analyzer.tools.custom_unity_tool import UnityCSharpMapperTool
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -20,12 +21,17 @@ class UnityRepoReader():
     # YAML config locations (must match files under src/unity_repo_analyzer/config)
     agents_config = "config/agents.yaml"
     tasks_config = "config/tasks.yaml"
-    
+        
     # Initialize your pure Python helper
     path_resolver = SmartReportPathResolver()
-    
-    def __init__(self, project_name: str = "default_project"):
+
+    def __init__(self, project_name: str, api_key: str, provider: str):
         self.project_name = project_name
+        self.api_key = api_key
+        self.provider = provider
+
+    def get_llm(self):
+        return get_llm(api_key=self.api_key, provider=self.provider)
 
     # Learn more about YAML configuration files here:
     # Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
@@ -33,20 +39,23 @@ class UnityRepoReader():
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
+            
     @agent
     def crawler(self) -> Agent:
         return Agent(
             config= self.agents_config['crawler'],# type: ignore
             tools=[UnityCSharpMapperTool()],
-            verbose=True
+            verbose=True,
+            llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
 
     @agent
     def evaluator(self) -> Agent:
         return Agent(
             config=self.agents_config['evaluator'],# type: ignore
-            tools=[FileReadTool()],  # The evaluator can read files if needed for deeper analysis
-            verbose=True
+            tools=[SafeFileReadTool()],  # The evaluator can read files if needed for deeper analysis
+            verbose=True,
+            llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
 
     @agent
@@ -54,7 +63,8 @@ class UnityRepoReader():
         return Agent(
             config=self.agents_config['writer'],# type: ignore
             tools=[],  # The writer operates entirely on text summaries provided as context
-            verbose=True
+            verbose=True,
+            llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
 
     # --- Tasks Definitions ---
@@ -77,7 +87,8 @@ class UnityRepoReader():
         task_config = self.tasks_config['writer_task'] # type: ignore
      
         # Run standard python logic to get the string
-        resolved_output_path = self.path_resolver.resolve_output_path(project_name=self.project_name)
+        current_project = getattr(self, 'project_name', 'default')
+        resolved_output_path = self.path_resolver.resolve_output_path(project_name=current_project)
         
         # Lock the string into the CrewAI config dictionary
         task_config['output_file'] = resolved_output_path #type: ignore
