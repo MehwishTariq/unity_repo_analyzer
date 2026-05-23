@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set up our application directory
-WORKDIR /app
+WORKDIR /app/src
 
 # Copy dependency definition files first to leverage Docker caching
 COPY pyproject.toml uv.lock ./
