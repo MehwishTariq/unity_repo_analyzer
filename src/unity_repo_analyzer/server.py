@@ -12,6 +12,7 @@ except Exception as patch_error:
   
 import os
 import uvicorn
+from fastapi.responses import RedirectResponse
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, HttpUrl
 from typing import Optional
