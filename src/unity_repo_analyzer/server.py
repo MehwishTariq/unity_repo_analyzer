@@ -28,6 +28,10 @@ class AuditRequest(BaseModel):
     # PROVIDER SELECTOR: Choose which engine to execute
     provider: str = "groq" # Options: "groq", "openai", "anthropic"
 
+@app.get("/")
+def read_root():
+    return RedirectResponse(url="/docs")
+    
 @app.post("/api/v1/audit")
 def trigger_repository_audit(
     payload: AuditRequest, 
