@@ -1,0 +1,25 @@
+name: Sync GitHub to Hugging Face Hub
+
+on:
+  push:
+    branches: [main] # Triggers automatically every time you push to your main branch
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Download the code from the GitHub repository onto the runner
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Required for the mirroring step to read full history
+          lfs: true      # Pulls down Git-LFS assets safely if you have large model files
+
+      # Step 2: Use the official Hugging Face syncing action
+      - name: Mirror to Hugging Face Hub
+        uses: huggingface/hub-sync@v0.1.0
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: Codename1999/unity_repo_analyzer  # CHANGE THIS to your HF space path
+          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_type: space  # Can be changed to 'model' or 'dataset' depending on your repo type
