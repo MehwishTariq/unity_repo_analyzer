@@ -15,7 +15,8 @@ def dummy_crew():
         "project_name": "default_project", 
         "repo": "/tmp/FakeUnityPath" if Path("/tmp").exists() else "C:\\FakeUnityPath"
     })
-    
+    return crew
+
 def test_writer_task_intercepts_inputs_and_sets_output_file(dummy_crew):
     # Intercept the actual file system checker so it doesn't execute during the test
     mock_output_path = str(Path("MockWorkspace") / "Reports" / "default" / "architecture_report_v5.md")
