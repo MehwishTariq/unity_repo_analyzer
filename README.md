@@ -23,7 +23,7 @@ An advanced, production-ready **Agentic RAG (Retrieval-Augmented Generation) pip
 ## 🔗 Live Interactive API Demo
 
 Skip the local installation and test the live, containerized production API right now:
-👉 **[Interactive Swagger API Documentation](https://codename1999-unity_repo_analyzer.hf.space/docs)**
+👉 **[Interactive Swagger API Documentation](https://huggingface.co/spaces/Codename1999/unity_repo_analyzer)**
 
 ---
 
