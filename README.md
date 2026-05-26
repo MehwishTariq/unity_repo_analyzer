@@ -23,7 +23,12 @@ An advanced, production-ready **Agentic RAG (Retrieval-Augmented Generation) pip
 ## 🔗 Live Interactive API Demo
 
 Skip the local installation and test the live, containerized production API right now:
-👉 **[Interactive Swagger API Documentation](https://huggingface.co/spaces/Codename1999/unity_repo_analyzer)**
+**(https://huggingface.co/spaces/MehwishTariq/unity_repo_analyzer)**
+
+---
+### 📄 View Pre-Generated Output
+Don't have a Unity repository on hand? Look at a production-grade architectural review generated entirely by this system:
+👉 **[Read the Sample Architecture Report](./Reports/count_master/architecture_report_v1.md)**
 
 ---
 
@@ -32,7 +37,7 @@ Skip the local installation and test the live, containerized production API righ
 This project demonstrates production-grade backend engineering, solving complex bottlenecks inherent to distributed AI agent execution:
 
 * **Platform-Agnostic File IO Sandbox:** Engineered a dynamic, cross-platform workspace system that fluidly translates file paths and execution parameters across local Windows developer environments and cloud Linux containers natively.
-* **Strict LLM Schema Interception:** Authored a robust custom runtime middleware layer (`SafeGroqFileReadTool`) to intercept, clean, and cast unstable LLM JSON tool payloads into strictly validated types. This effectively mitigates schema-drift crashes common in hyper-fast inference models like Groq.
+* **Strict LLM Schema Interception:** Authored a robust custom runtime middleware layer (`SafeFileReadTool`) to intercept, clean, and cast unstable LLM JSON tool payloads into strictly validated types. This effectively mitigates schema-drift crashes common in hyper-fast inference models like Groq.
 * **High-Performance Context Isolation:** Implemented Git sparse-checkout routines to isolate game logic structures (C# scripts) away from heavy game binary metadata (`.meta`, assets), reducing LLM token consumption by up to **80%**.
 * **Robust Automated Verification:** Designed a test suite leveraging `pytest` and `unittest.mock` to validate critical route path-generation mechanics deterministically without causing disk-write side effects.
 
@@ -79,7 +84,7 @@ This project utilizes `uv`, a ultra-fast Python package installer and resolver.
 Clone the repository and automatically synchronize the locked project workspace environment:
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/unity_repo_analyzer.git](https://github.com/YOUR_USERNAME/unity_repo_analyzer.git)
+git clone https://github.com/MehwishTariq/unity_repo_analyzer.git
 cd unity_repo_analyzer
 uv sync
 
