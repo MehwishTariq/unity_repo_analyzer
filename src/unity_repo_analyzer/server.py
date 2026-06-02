@@ -1,14 +1,6 @@
-# =====================================================================
-# EMERGENCY MONKEY-PATCH: Fixes CrewAI Bug injecting 'cache_breakpoint' into Groq
-# =====================================================================
-try:
-    import crewai.llms.cache as _crewai_cache
-    # Replaces the internal flag injector function with a safe pass-through lambda
-    _crewai_cache.mark_cache_breakpoint = lambda msg: msg
-    print("[PATCH] Successfully bypassed CrewAI cache_breakpoint injector for Groq.")
-except Exception as patch_error:
-    print(f"[PATCH WARNING] Failed to apply Groq compatibility patch: {patch_error}")
-# =====================================================================
+from unity_repo_analyzer.helper.monkey_patch import patch
+
+patch()
   
 import os
 import uvicorn
@@ -72,3 +64,8 @@ def trigger_repository_audit(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal engine execution crash: {str(e)}")
+
+if __name__ == "__main__":
+    # Fallback to 7860 if the PORT environment variable isn't specified
+    port = int(os.environ.get("PORT", 7860))
+    uvicorn.run("server:app", host="0.0.0.0", port=port)
