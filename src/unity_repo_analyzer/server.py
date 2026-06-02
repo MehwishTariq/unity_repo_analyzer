@@ -29,9 +29,6 @@ class AuditRequest(BaseModel):
     # PROVIDER SELECTOR: Choose which engine to execute
     provider: str = "groq" # Options: "groq", "openai", "anthropic"
 
-@app.get("/")
-def read_root():
-    return RedirectResponse(url="/docs")
     
 @app.post("/api/v1/audit")
 def trigger_repository_audit(
@@ -75,9 +72,3 @@ def trigger_repository_audit(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal engine execution crash: {str(e)}")
-  
-
-if __name__ == "__main__":
-    # Fallback to 7860 if the PORT environment variable isn't specified
-    port = int(os.environ.get("PORT", 7860))
-    uvicorn.run("server:app", host="0.0.0.0", port=port)
