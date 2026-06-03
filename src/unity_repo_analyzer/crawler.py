@@ -42,7 +42,7 @@ class Crawler:
         
 
     @staticmethod
-    def analyze_public_repo(github_url: str, project_name: str, client_api_key: str | None, provider: str | None) -> str:
+    def analyze_public_repo(github_url: str, project_name: str, client_api_key: str, provider: str) -> str:
         clean_url = Crawler.sanitize_github_url(github_url)
 
         try:

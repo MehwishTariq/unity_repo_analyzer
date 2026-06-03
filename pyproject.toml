@@ -2,7 +2,7 @@
 name = "unity_repo_analyzer"
 version = "0.1.0"
 description = "unity_repo_analyzer using crewAI"
-authors = [{ name = "Mehwish Tariq Ameen", email = "mehwishtariq.ameen@gmail.com" }]
+authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.14"
 dependencies = [
     "crewai[tools]==1.14.5",
@@ -11,7 +11,6 @@ dependencies = [
     "litellm>=1.85.1",
     "pytest>=9.0.3",
     "uvicorn>=0.47.0",
-    "gradio>=6.15.2" 
 ]
 
 [project.scripts]

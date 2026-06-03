@@ -87,21 +87,19 @@ Clone the repository and automatically synchronize the locked project workspace 
 git clone https://github.com/MehwishTariq/unity_repo_analyzer.git
 cd unity_repo_analyzer
 uv sync
+
 ```
 
-### 2. Launching the Combined Gradio + FastAPI App
+### 2. Launching the Local API
 
-The application now runs as a single integrated service: **Gradio UI** (frontend) + **FastAPI** (backend) in one process.
+Run the Uvicorn ASGI server locally with hot-reloading active:
 
 ```bash
-# From the repository root
-python src/unity_repo_analyzer/app.py
+uv run uvicorn unity_repo_analyzer.main:app --reload --port 8000
+
 ```
 
-The Gradio interface will open automatically on `http://127.0.0.1:7860`.
-
-- **Gradio UI:** http://127.0.0.1:7860 (interactive web interface)
-- **FastAPI backend:** http://127.0.0.1:8000 (runs internally, called by Gradio)
+Open `http://127.0.0.1:8000/docs` in your browser to view the interactive API playground.
 
 ### 3. Running the Comprehensive Test Suite
 
@@ -109,47 +107,5 @@ Validate the core routing utilities across platform abstractions:
 
 ```bash
 uv run pytest
+
 ```
-
-### 4. Custom Environment Variables (Optional)
-
-Override default ports or backend URL:
-
-```bash
-# Set custom Gradio port
-$env:PORT = "7861"
-python src/unity_repo_analyzer/app.py
-
-# Set custom backend host/port (if running FastAPI separately)
-$env:FASTAPI_HOST = "127.0.0.1"
-$env:FASTAPI_PORT = "8000"
-$env:FASTAPI_PATH = "/api/v1/audit"
-python src/unity_repo_analyzer/app.py
-```
-
-### 5. Docker Build & Deployment
-
-Build and run the containerized application for Hugging Face Spaces or local Docker:
-
-```bash
-docker build -t unity-repo-analyzer .
-docker run -p 7860:7860 unity-repo-analyzer
-```
-
-Then visit `http://127.0.0.1:7860` in your browser.
-
----
-
-## 🚀 Hugging Face Spaces Deployment
-
-This application is optimized for **Hugging Face Spaces** using Docker.
-
-1. **Create a new Space** on Hugging Face with Docker SDK
-2. **Push this repository** to your Space
-3. **Set environment variables** in Space Settings if needed (optional):
-   - `FASTAPI_HOST` (default: `127.0.0.1`)
-   - `FASTAPI_PORT` (default: `8000`)
-   - `PORT` (default: `7860` — Spaces requirement)
-
-The Space automatically detects the Dockerfile and deploys the combined Gradio + FastAPI application.
-
