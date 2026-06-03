@@ -45,6 +45,7 @@ class UnityRepoReader():
         return Agent(
             config= self.agents_config['crawler'],# type: ignore
             tools=[UnityCSharpMapperTool()],
+            max_rpm=15,
             verbose=True,
             llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
@@ -55,6 +56,7 @@ class UnityRepoReader():
             config=self.agents_config['evaluator'],# type: ignore
             tools=[SafeFileReadTool()],  # The evaluator can read files if needed for deeper analysis
             verbose=True,
+            max_rpm=15,
             llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
 
@@ -64,6 +66,7 @@ class UnityRepoReader():
             config=self.agents_config['writer'],# type: ignore
             tools=[],  # The writer operates entirely on text summaries provided as context
             verbose=True,
+            max_rpm=15,
             llm=self.get_llm() # Dynamically assigns the LLM based on user input at runtime
         )
 
@@ -109,5 +112,6 @@ class UnityRepoReader():
             tasks=self.tasks, # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
+            max_rpm= 20,
             # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
         )
